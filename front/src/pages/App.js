@@ -21,10 +21,9 @@ const App = observer(class App extends Component {
               <li><Link to="/documentation">Documentation</Link></li>
               <li><Link to="/product">Products</Link></li>
 
-              <li><Link to="/admin">Company</Link></li>
-                {auth.isUser || auth.isAdmin? <li><Link to="/dashboard">Add/Edit Books</Link> </li> : null}
-                {auth.isAdmin ? <li><Link to="/user">Add/Edit Users</Link> </li> : null}
-              <li><Link to="/dashboard">Login</Link> </li>
+              <li><Link to="/company">Company</Link></li>
+                {auth.isUser ? <li><Link to="/user">Add/Edit Books</Link> </li> : null}
+                {auth.isAdmin ? <li><Link to="/admin">Add/Edit Users</Link> </li> : null}
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li className="navbar-text" style={{ color: "steelBlue" }}>{logInStatus}</li>

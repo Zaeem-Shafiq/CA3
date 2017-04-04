@@ -11,6 +11,7 @@ import AdminPage from "./pages/AdminPage";
 import auth from "./authorization/auth";
 import Documentation from "./pages/Documentation";
 import Product from "./pages/Product";
+import Company from "./pages/Company";
 
 
 function requireAuth(nextState, replace) {
@@ -30,8 +31,9 @@ ReactDOM.render((
       <Route path="login" component={Login} />
       <Route path="logout" component={Logout} />
       <Route path="documentation" component={Documentation} />
-      <Route path="user" component={UserPage} />
-      <Route path="admin" component={AdminPage} />
+        {auth.isUser ? <Route path="user" component={UserPage} /> : null}
+        <Route path="company" component={Company} />
+        {auth.isAdmin ? <Route path="admin" component={AdminPage} /> : null}
       <Route path="product" component={Product} onEnter={requireAuth} />
     </Route>
   </Router>
