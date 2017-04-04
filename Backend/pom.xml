@@ -8,6 +8,7 @@
   <packaging>war</packaging>
 
   <name>CA3Backend</name>
+  <name>CA3Backend</name>
 
   <properties>
     <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
@@ -171,7 +172,7 @@
           </excludes>
         </configuration>
       </plugin> 
-      
+     
       
      
       
