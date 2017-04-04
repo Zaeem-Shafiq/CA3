@@ -7,49 +7,69 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.RollbackException;
 import security.IUser;
 import security.PasswordStorage;
 
 public class UserFacade implements IUserFacade {
 
-  EntityManagerFactory emf;
+    EntityManagerFactory emf;
 
-  public UserFacade(EntityManagerFactory emf) {
-    this.emf = emf;   
-  }
-
-  private EntityManager getEntityManager() {
-    return emf.createEntityManager();
-  }
-
-  @Override
-  public IUser getUserByUserId(String id) {
-    EntityManager em = getEntityManager();
-    try {
-      return em.find(User.class, id);
-    } finally {
-      em.close();
+    public UserFacade(EntityManagerFactory emf) {
+        this.emf = emf;
     }
-  }
 
-  /*
+    private EntityManager getEntityManager() {
+        return emf.createEntityManager();
+    }
+
+    @Override
+    public IUser getUserByUserId(String id) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.find(User.class, id);
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<User> getUsers() {
+        EntityManager em = getEntityManager();
+        return em.createQuery("SELECT u FROM SEED_USER u", User.class).getResultList();
+    }
+
+    public IUser createUser(User user) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(user);
+            em.getTransaction().commit();
+        } catch (RollbackException r) {
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+        return getUserByUserId(user.getUserName());
+    }
+
+    /*
   Return the Roles if users could be authenticated, otherwise null
-   */
-  @Override
-  public List<String> authenticateUser(String userName, String password) {
-    IUser user = getUserByUserId(userName);
-      boolean passwordCorrect = false;
-      try {
-          passwordCorrect = PasswordStorage.verifyPassword(password, user.getPassword());
-      } catch (PasswordStorage.CannotPerformOperationException | PasswordStorage.InvalidHashException ex) {
-          Logger.getLogger(UserFacade.class.getName()).log(Level.SEVERE, null, ex);
-      }
-      if(passwordCorrect) {
-          return user.getRolesAsStrings();
-      }
-      return null;
+     */
+    @Override
+    public List<String> authenticateUser(String userName, String password) {
+        IUser user = getUserByUserId(userName);
+        boolean passwordCorrect = false;
+        try {
+            passwordCorrect = PasswordStorage.verifyPassword(password, user.getPassword());
+        } catch (PasswordStorage.CannotPerformOperationException | PasswordStorage.InvalidHashException ex) {
+            Logger.getLogger(UserFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (passwordCorrect) {
+            return user.getRolesAsStrings();
+        }
+        return null;
 
 //    return user != null && password.equals(user.getPassword()) ? user.getRolesAsStrings() : null;  
-  }
+    }
 
 }
