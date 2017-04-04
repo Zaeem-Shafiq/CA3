@@ -1,22 +1,29 @@
 package facades;
 
 import entity.Book;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.RollbackException;
 
 public class BookFacade {
 
     EntityManagerFactory emf;
 
-    public BookFacade(EntityManagerFactory emf) {
-        this.emf = emf;
+    public BookFacade(String persistence) {
+        this.emf = Persistence.createEntityManagerFactory(persistence);
     }
 
     private EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    public List<Book> getBooks() {
+        EntityManager em = getEntityManager();
+        return em.createQuery("SELECT b FROM Book b", Book.class).getResultList();
+    }
+    
     public Book getBookById(int id) {
         EntityManager em = getEntityManager();
         return em.find(Book.class, id);
