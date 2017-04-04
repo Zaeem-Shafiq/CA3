@@ -59,11 +59,11 @@ public class BookFacade {
 
     public boolean deleteBook(int id) {
         EntityManager em = getEntityManager();
-        Book person = getBookById(id);
+        Book book = getBookById(id);
         try {
             em.getTransaction().begin();
-            //person = em.merge(person);
-            em.remove(person);
+            book = em.merge(book);
+            em.remove(book);
             em.getTransaction().commit();
         } catch (RollbackException r) {
             em.getTransaction().rollback();
