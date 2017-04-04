@@ -12,6 +12,15 @@ import Home from "./Home";
 import Company from "./Company";
 import Details from "./Details";
 
+function requireAuth(nextState, replace) {
+    if (!auth.loggedIn) {
+        replace({
+            pathname: '/login',
+            state: { nextPathname: nextState.location.pathname }
+        })
+    }
+}
+
 const Product = (props) => (
     <div>
         <h2>Our Products</h2>
@@ -37,7 +46,7 @@ class RouterComponent extends React.Component {
                 {auth.isUser ? <Route path="user" component={UserPage}/> : null}
                 <Route path="company" component={Company}/>
                 {auth.isAdmin ? <Route path="admin" component={AdminPage}/> : null}
-                <Route path="product" component={Product} books={books} />
+                <Route path="product" component={Product} books={books} onEnter={requireAuth} />
                 <Route path="products/details/:id" component={Details} books={books}/>
             </Route>
         </Router>
