@@ -18,6 +18,9 @@ import javax.ws.rs.core.MediaType;
 import facades.BookFacade;
 import java.util.List;
 import entity.Book;
+import javax.annotation.security.RolesAllowed;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.POST;
 import javax.ws.rs.PathParam;
 
 /**
@@ -63,13 +66,42 @@ public class BookResource {
         }
     }
     
-    /**
-     * PUT method for updating or creating an instance of BookResource
-     *
-     * @param content representation for the resource
-     */
     @PUT
-    @Consumes(MediaType.APPLICATION_XML)
-    public void putXml(String content) {
+    @RolesAllowed("User")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String updateBook(String content) {
+        try {
+            Book book = gson.fromJson(content, Book.class);
+            bf.updateBook(book);
+            return "{\"isSucced\" : \"Updated\"}";
+        } catch(Exception e) {
+            throw null;
+        }
+    }
+    
+    @POST
+    @RolesAllowed("User")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String createBook(String content) {
+        try {
+            Book book = gson.fromJson(content, Book.class);
+            bf.createBook(book);
+            return "{\"isSucced\" : \"Created\"}";
+        } catch(Exception e) {
+            throw null;
+        }
+    }
+    
+    @DELETE
+    @Path("{id}")
+    @RolesAllowed("User")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String deleteBook(@PathParam("id") int id) {
+        try {
+            bf.deleteBook(id);
+            return "{\"isSucced\" : \"Deleted\"}";
+        } catch(Exception e) {
+            throw null;
+        }
     }
 }

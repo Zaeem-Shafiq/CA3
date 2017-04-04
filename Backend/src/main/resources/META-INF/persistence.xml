@@ -18,7 +18,6 @@
       <!--      <property name="javax.persistence.jdbc.url" value="jdbc:derby:Users;create=true"/>-->
       <property name="eclipselink.logging.level" value="WARNING"/>
       <property name="eclipselink.canonicalmodel.subpackage" value="test"/>
-      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
       <!-- Sets up the initial test users for the seed -->
       <property name="javax.persistence.sql-load-script-source" value="scripts/initalUserAndRolesSeed.sql"/>
     </properties>
