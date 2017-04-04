@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {observer} from "mobx-react";
 import userData from "../stores/userStore";
+import {observable} from "mobx";
 
 var book = [{
     "id": 1,
@@ -8,6 +9,7 @@ var book = [{
     "info": "info",
     "moreInfo": "more"
 }];
+
 
 const UserPage = observer(
     class UserPage extends Component {
