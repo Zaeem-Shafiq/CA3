@@ -204,3 +204,5 @@ nb-configuration.xml
 /src/main/resources/META-INF/persistence.xml
 /Users/
 
+.gitignore
+node_modules
