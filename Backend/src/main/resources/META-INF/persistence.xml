@@ -14,13 +14,12 @@
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ca3?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="Sarkar1985"/>
+      <property name="javax.persistence.jdbc.password" value="root"/>
       <!--      <property name="javax.persistence.jdbc.url" value="jdbc:derby:Users;create=true"/>-->
       <property name="eclipselink.logging.level" value="WARNING"/>
       <property name="eclipselink.canonicalmodel.subpackage" value="test"/>
-      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
       <!-- Sets up the initial test users for the seed -->
-      <!--<property name="javax.persistence.sql-load-script-source" value="scripts/initalUserAndRolesSeed.sql"/>-->
+      <property name="javax.persistence.sql-load-script-source" value="scripts/initalUserAndRolesSeed.sql"/>
     </properties>
   </persistence-unit>
 </persistence>

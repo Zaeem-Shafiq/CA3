@@ -13,9 +13,7 @@ const App = observer(class App extends Component {
       <div>
         <nav className="navbar navbar-default" >
           <div className="container-fluid">
-            <div className="navbar-header">
-              <a className="navbar-brand" href="#">Semester Seed</a>
-            </div>
+
             <ul className="nav navbar-nav">
               <li><Link to="/home">Home</Link></li>
               <li><Link to="/documentation">Documentation</Link></li>

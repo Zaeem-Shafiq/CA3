@@ -1,18 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.css';
-import { hashHistory, Router, Route, IndexRoute } from 'react-router'
-import App from './pages/App';
-import Home from './pages/Home';
-import Login from "./pages/Login";
-import Logout from "./pages/Logout";
-import UserPage from "./pages/UserPage";
-import AdminPage from "./pages/AdminPage";
 import auth from "./authorization/auth";
-import Documentation from "./pages/Documentation";
-import Product from "./pages/Product";
-import Company from "./pages/Company";
+import RouterComponent from "./pages/RouterComponent";
+import BookStore from "./stores/BookStore";
 
+var bookStore = new BookStore();
 
 function requireAuth(nextState, replace) {
   if (!auth.loggedIn) {
@@ -23,18 +16,7 @@ function requireAuth(nextState, replace) {
   }
 }
 
-ReactDOM.render((
-  <Router history={hashHistory}>
-    <Route path="/" component={App}>
-      <IndexRoute component={Home}/>
-      <Route path="home" component={Home} />
-      <Route path="login" component={Login} />
-      <Route path="logout" component={Logout} />
-      <Route path="documentation" component={Documentation} />
-        {auth.isUser ? <Route path="user" component={UserPage} /> : null}
-        <Route path="company" component={Company} />
-        {auth.isAdmin ? <Route path="admin" component={AdminPage} /> : null}
-      <Route path="product" component={Product} onEnter={requireAuth} />
-    </Route>
-  </Router>
-), document.getElementById('root'))
+ReactDOM.render(
+    <RouterComponent bookStore={bookStore}/>,
+    document.getElementById('root')
+);
