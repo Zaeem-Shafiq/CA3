@@ -19,7 +19,7 @@
             <property name="eclipselink.logging.level" value="WARNING"/>
             <property name="eclipselink.canonicalmodel.subpackage" value="test"/>
             <!-- Sets up the initial test users for the seed -->
-            <property name="javax.persistence.sql-load-script-source" value="scripts/initalUserAndRolesSeed.sql"/>
+            <!--<property name="javax.persistence.sql-load-script-source" value="scripts/initalUserAndRolesSeed.sql"/>-->
         </properties>
     </persistence-unit>
 </persistence>
