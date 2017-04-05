@@ -7,6 +7,7 @@ const URL = require("../../package.json").serverURL;
 class UserStore {
   @observable messageFromServer = "";
   @observable errorMessage = "";
+  @observable books = [];
 
   @action
   setErrorMessage = (err) => {
