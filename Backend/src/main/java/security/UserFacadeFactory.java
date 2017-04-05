@@ -10,7 +10,7 @@ import javax.persistence.Persistence;
 public class UserFacadeFactory {
 //    private static final IUserFacade instance = 
 //            new UserFacade(Persistence.createEntityManagerFactory(DeploymentConfiguration.PU_NAME));
-private static final IUserFacade instance = new UserFacade(Persistence.createEntityManagerFactory("pu_development"));
+private static final IUserFacade instance = new UserFacade("pu_development");
     public static IUserFacade getInstance(){
         return instance;
     }
