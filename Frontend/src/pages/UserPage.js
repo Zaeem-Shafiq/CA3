@@ -1,19 +1,10 @@
 import React, {Component} from 'react'
 import {observer} from "mobx-react";
 import userData from "../stores/userStore";
-import {observable} from "mobx";
-
-var book = [{
-    "id": 1,
-    "title": "Harry Potter",
-    "info": "info",
-    "moreInfo": "more"
-}];
-
+import {Link} from "react-router";
 
 const UserPage = observer(
     class UserPage extends Component {
-
         componentWillMount() {
             /*
              This will fetch data each time you navigate to this route
@@ -21,33 +12,16 @@ const UserPage = observer(
              */
             userData.getData();
         }
-
         render() {
             return (
                 <div>
                     <h2>Users</h2>
                     <p>This message is fetched from the server if you are properly logged in</p>
                     <div className="msgFromServer">
-                        <table className="table">
-                            <thead>
-                            <tr>
-                                <th>title</th>
-                                <th>info</th>
-                                <th>more info</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {userData.messageFromServer.map(book => {
-                                return (
-                                    <tr key={book.id}>
-                                        <td>{book.title}</td>
-                                        <td>{book.info}</td>
-                                        <td>{book.moreInfo}</td>
-                                    </tr>
-                                )
-                            })}
-                            </tbody>
-                        </table>
+                        <ul>
+                            {userData.messageFromServer.map((book, index) => <li key={index}>
+                                {book.title} <Link to={`products/details/${index}`}>(details)</Link></li>)}
+                        </ul>
                     </div>
 
                     <h4 style={{color: "red"}}>{userData.errorMessage}</h4>

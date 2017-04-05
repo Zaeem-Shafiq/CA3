@@ -11,6 +11,8 @@ import Documentation from "../pages/Documentation";
 import Home from "./Home";
 import Company from "./Company";
 import Details from "./Details";
+import userStore from "../stores/userStore"
+import {observer} from "mobx-react";
 
 function requireAuth(nextState, replace) {
     if (!auth.loggedIn) {
@@ -21,20 +23,34 @@ function requireAuth(nextState, replace) {
     }
 }
 
-const Product = (props) => (
-    <div>
-        <h2>Our Products</h2>
-        <h4>All our great books </h4>
-        <ul>
-            {props.route.books.map((book, index) => <li key={index}>
-                {book.title} <Link to={`products/details/${index}`}>(details)</Link></li>)}
-        </ul>
-    </div>
+const Product = observer(
+    class Product extends React.Component {
+        componentWillMount() {
+            userStore.getData();
+        }
+        render() {
+            return (
+                <div>
+                    <h2>Users</h2>
+                    <p>This message is fetched from the server if you are properly logged in</p>
+                    <div className="msgFromServer">
+                        <ul>
+                            {userStore.messageFromServer.map((book, index) => <li key={index}>
+                                {book.title} <Link to={`products/details/${index}`}>(details)</Link></li>)}
+                        </ul>
+                    </div>
+
+                    <h4 style={{color: "red"}}>{userStore.errorMessage}</h4>
+                </div>
+            )
+        }
+    }
 )
+
 
 class RouterComponent extends React.Component {
     render() {
-        var books = this.props.bookStore.books;
+        var books = userStore.messageFromServer;
         return(
         <Router history={hashHistory}>
             <Route path="/" component={App}>
