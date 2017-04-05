@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.RollbackException;
 import security.IUser;
 import security.PasswordStorage;
@@ -15,8 +16,8 @@ public class UserFacade implements IUserFacade {
 
     EntityManagerFactory emf;
 
-    public UserFacade(EntityManagerFactory emf) {
-        this.emf = emf;
+    public UserFacade(String persistence) {
+        this.emf = Persistence.createEntityManagerFactory(persistence);
     }
 
     private EntityManager getEntityManager() {
@@ -50,6 +51,23 @@ public class UserFacade implements IUserFacade {
             em.close();
         }
         return getUserByUserId(user.getUserName());
+    }
+
+    public boolean deleteUser(String id) {
+        EntityManager em = getEntityManager();
+        IUser user = getUserByUserId(id);
+        try {
+            em.getTransaction().begin();
+            user = em.merge(user);
+            em.remove(user);
+            em.getTransaction().commit();
+        } catch (RollbackException r) {
+            em.getTransaction().rollback();
+            return false;
+        } finally {
+            em.close();
+        }
+        return true;
     }
 
     /*

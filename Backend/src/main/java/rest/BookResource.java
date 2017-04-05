@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package rest;
 
 import com.google.gson.Gson;
@@ -23,11 +18,6 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
 import javax.ws.rs.PathParam;
 
-/**
- * REST Web Service
- *
- * @author Asger
- */
 @Path("book")
 public class BookResource {
 
@@ -37,9 +27,6 @@ public class BookResource {
     @Context
     private UriInfo context;
 
-    /**
-     * Creates a new instance of BookResource
-     */
     public BookResource() {
     }
 
@@ -49,23 +36,22 @@ public class BookResource {
         try {
             List<Book> books = bf.getBooks();
             return gson.toJson(books);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw null;
         }
     }
 
-    
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getBookById(@PathParam("id") int id) {
         try {
             return gson.toJson(bf.getBookById(id));
-        } catch(Exception e){
+        } catch (Exception e) {
             throw null;
         }
     }
-    
+
     @PUT
     @RolesAllowed("User")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -74,11 +60,11 @@ public class BookResource {
             Book book = gson.fromJson(content, Book.class);
             bf.updateBook(book);
             return "{\"isSucced\" : \"Updated\"}";
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw null;
         }
     }
-    
+
     @POST
     @RolesAllowed("User")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -87,11 +73,11 @@ public class BookResource {
             Book book = gson.fromJson(content, Book.class);
             bf.createBook(book);
             return "{\"isSucced\" : \"Created\"}";
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw null;
         }
     }
-    
+
     @DELETE
     @Path("{id}")
     @RolesAllowed("User")
@@ -100,7 +86,7 @@ public class BookResource {
         try {
             bf.deleteBook(id);
             return "{\"isSucced\" : \"Deleted\"}";
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw null;
         }
     }
