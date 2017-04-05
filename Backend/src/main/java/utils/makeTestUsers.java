@@ -7,7 +7,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
-import security.PasswordStorage;
 
 public class makeTestUsers {
 
@@ -28,12 +27,6 @@ public class makeTestUsers {
                 User both = new User("user_admin", "test");
                 both.addRole(userRole);
                 both.addRole(adminRole);
-                String userPassword = PasswordStorage.createHash(user.getPassword());
-                String adminPassword = PasswordStorage.createHash(admin.getPassword());
-                String bothPassword = PasswordStorage.createHash(both.getPassword());
-                user.setPassword(userPassword);
-                admin.setPassword(adminPassword);
-                both.setPassword(bothPassword);
                 em.persist(userRole);
                 em.persist(adminRole);
                 em.persist(user);
