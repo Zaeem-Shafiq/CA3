@@ -51,7 +51,7 @@ public class Admin {
     @DELETE
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public String deleteBook(@PathParam("id") String id) {
+    public String deleteUser(@PathParam("id") String id) {
         try {
             uf.deleteUser(id);
             return "{\"isSucced\" : \"Deleted\"}";
