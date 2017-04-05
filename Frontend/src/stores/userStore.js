@@ -49,7 +49,7 @@ class UserStore {
             "moreInfo": "adad",// document.getElementById("moreinfo")
         };
         console.log(book)
-        fetch(URL + "api/book", {method: "post", headers: {'Authorization': auth.isUser, 'Accept': 'application/json', 'Content-Type': 'application/json'}, body: JSON.stringify(book)}).then(function(res){
+        fetch("http://localhost:8084/seedMaven/" + "api/book", {method: "post", headers: new Headers({'Authorization': auth.isUser, 'Accept': 'application/json', 'Content-Type': 'application/json'}), body: JSON.stringify(book)}).then(function(res){
                 return res.text();
             }).then(function(text){
                 console.log(text);
