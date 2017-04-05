@@ -25,7 +25,7 @@ public class Admin {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getUseres() {
+    public String getUsers() {
         try {
             List<jsonUser> jList = new ArrayList();
             for (entity.User user : uf.getUsers()) {
