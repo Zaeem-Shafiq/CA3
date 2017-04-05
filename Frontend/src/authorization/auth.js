@@ -36,6 +36,7 @@ class AuthenticationHandler {
     this.isAdmin = false;
     this.isUser = false;
     decoded.roles.forEach(function (role) {
+      console.log(role);
       if (role === "Admin") {
         this.isAdmin = true;
       }

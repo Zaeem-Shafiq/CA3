@@ -5,9 +5,8 @@ const URL = require("../../package.json").serverURL;
 
 
 class UserStore {
-  @observable messageFromServer = "";
+  @observable messageFromServer = [];
   @observable errorMessage = "";
-  @observable books = [];
 
   @action
   setErrorMessage = (err) => {
@@ -17,10 +16,10 @@ class UserStore {
   @action
   getData = () => {
     this.errorMessage = "";
-    this.messageFromServer = "";
+    this.messageFromServer = [];
     let errorCode = 200;
     const options = fetchHelper.makeOptions("GET", true);
-    fetch(URL + "api/demouser", options)
+    fetch(URL + "api/book", options)
       .then((res) => {
         if (res.status > 210 || !res.ok) {
           errorCode = res.status;
@@ -32,7 +31,7 @@ class UserStore {
           throw new Error(`${res.error.message} (${res.error.code})`);
         }
         else {
-          this.messageFromServer = res.message;
+          this.messageFromServer.replace(res);
         }
       })).catch(err => {
         //This is the only way (I have found) to verify server is not running

@@ -37,7 +37,7 @@ const UserPage = observer(
                             </tr>
                             </thead>
                             <tbody>
-                            {book.map(book => {
+                            {userData.messageFromServer.map(book => {
                                 return (
                                     <tr key={book.id}>
                                         <td>{book.title}</td>
@@ -48,7 +48,6 @@ const UserPage = observer(
                             })}
                             </tbody>
                         </table>
-                        {userData.messageFromServer}
                     </div>
 
                     <h4 style={{color: "red"}}>{userData.errorMessage}</h4>
