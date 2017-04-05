@@ -25,7 +25,7 @@ public class Admin {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getUseres() {
+    public String getUsers() {
         try {
             List<jsonUser> jList = new ArrayList();
             for (entity.User user : uf.getUsers()) {
@@ -51,7 +51,7 @@ public class Admin {
     @DELETE
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public String deleteBook(@PathParam("id") String id) {
+    public String deleteUser(@PathParam("id") String id) {
         try {
             uf.deleteUser(id);
             return "{\"isSucced\" : \"Deleted\"}";
