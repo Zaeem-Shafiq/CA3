@@ -16,8 +16,8 @@ public class makeTestUsers {
     public static void main(String[] args) {
         EntityManager em = Persistence.createEntityManagerFactory("pu_development").createEntityManager();
         try {
-            System.out.println("Creating TEST Users");
             if (em.find(User.class, "user") == null) {
+                System.out.println("Creating TEST Users");
                 em.getTransaction().begin();
                 Role userRole = new Role("User");
                 Role adminRole = new Role("Admin");

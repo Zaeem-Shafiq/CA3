@@ -52,6 +52,23 @@ public class UserFacade implements IUserFacade {
         return getUserByUserId(user.getUserName());
     }
 
+    public boolean deleteUser(String id) {
+        EntityManager em = getEntityManager();
+        IUser user = getUserByUserId(id);
+        try {
+            em.getTransaction().begin();
+            user = em.merge(user);
+            em.remove(user);
+            em.getTransaction().commit();
+        } catch (RollbackException r) {
+            em.getTransaction().rollback();
+            return false;
+        } finally {
+            em.close();
+        }
+        return true;
+    }
+
     /*
   Return the Roles if users could be authenticated, otherwise null
      */
