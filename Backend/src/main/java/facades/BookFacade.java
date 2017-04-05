@@ -19,14 +19,14 @@ public class BookFacade {
         return emf.createEntityManager();
     }
 
-    public List<Book> getBooks() {
-        EntityManager em = getEntityManager();
-        return em.createQuery("SELECT b FROM Book b", Book.class).getResultList();
-    }
-    
     public Book getBookById(int id) {
         EntityManager em = getEntityManager();
         return em.find(Book.class, id);
+    }
+
+    public List<Book> getBooks() {
+        EntityManager em = getEntityManager();
+        return em.createQuery("SELECT b FROM Book b", Book.class).getResultList();
     }
 
     public Book createBook(Book book) {
