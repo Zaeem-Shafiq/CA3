@@ -9,6 +9,7 @@ import static io.restassured.RestAssured.*;
 import io.restassured.parsing.Parser;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.List;
 import javax.servlet.ServletException;
 import org.apache.catalina.LifecycleException;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -80,10 +81,10 @@ public class InitialSeedRestIntegrationTest {
                 .statusCode(200)
                 .body("id", equalTo(1));
     }
-    
+
     @Test
-    public void testUpdateBook(){
-        login("user","test");
+    public void testUpdateBook() {
+        login("user", "test");
         BookFacade b = new BookFacade("pu_development");
         Book book = b.getBookById(1);
         book.setTitle("bobby");
@@ -96,40 +97,40 @@ public class InitialSeedRestIntegrationTest {
                 .then()
                 .statusCode(200);
     }
-    
-    @Test
-    public void testCreateBook(){
-        
-    }
-    
-    @Test
-    public void testDeleteBook(){
-       login("user","test");
-                
-                
-                given()
-                        .contentType("application/json")
-                .header("Authorization", "Bearer " + securityToken)
-                        .
-                        
-                        pathParam("id", 53).when().delete("api/book/{id}").then().statusCode(200);
-    }
-    
-    
-    
 
-//  @Test
-//  public void tesRestForAdmin() {
-//    login("admin","test");
-//    given()
-//            .contentType("application/json")
-//            .header("Authorization", "Bearer " + securityToken)
-//            .when()
-//            .get("/api/user").then()
-//            .statusCode(200)
-//            .body("message", equalTo("Hello Admin from server (call accesible by only authenticated ADMINS)"))
-//            .body("serverTime",notNullValue());
-//  }
+    @Test
+    public void testCreateBook() {
+        Book b = new Book("title", "info", "more info");
+
+        login("user", "test");
+        given()
+                .contentType("application/json")
+                .header("Authorization", "Bearer " + securityToken)
+                .body(new Gson().toJson(b))
+                .when()
+                .post("api/book")
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    public void testDeleteBook() {
+        BookFacade bf = new BookFacade("pu_development");
+        Book b = new Book("title", "info", "more info");
+        
+        bf.createBook(b);
+        List<Book> bookList = bf.getBooks();
+        
+        int del = bookList.get(bookList.size()-1).getId();
+        
+        login("user", "test");
+        given()
+                .contentType("application/json")
+                .header("Authorization", "Bearer " + securityToken)
+                .
+                pathParam("id", del).when().then().statusCode(200);
+    }
+
     @Test
     public void testRestForUser() {
         login("user", "test");
