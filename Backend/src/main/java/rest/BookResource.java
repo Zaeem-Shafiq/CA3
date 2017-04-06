@@ -84,8 +84,10 @@ public class BookResource {
 //    @RolesAllowed("User")
     @Consumes(MediaType.APPLICATION_JSON)
     public String deleteBook(@PathParam("id") int id) {
+        System.out.println("first id: " + id);
         try {
-            bf.deleteBook(id);
+            System.out.println(bf.deleteBook(id));
+            System.out.println("second id: " + id);
             return "{\"isSucced\" : \"Deleted\"}";
         } catch (Exception e) {
             throw null;

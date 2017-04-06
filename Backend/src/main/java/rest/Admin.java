@@ -41,7 +41,10 @@ public class Admin {
     @Produces(MediaType.APPLICATION_JSON)
     public String createUser(String content) {
         try {
-            uf.createUser(gson.fromJson(content, entity.User.class));
+            entity.User user = gson.fromJson(content, entity.User.class);
+            entity.User user1 = new entity.User(user.getUserName(), user.getPassword());
+            user1.addRole(user.getRoles().get(0));
+            uf.createUser(user1);
             return "{\"isSucced\" : \"Created\"}";
         } catch (Exception e) {
             throw null;
