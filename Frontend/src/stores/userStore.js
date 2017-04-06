@@ -44,9 +44,9 @@ class UserStore {
         let errorCode = 200;
         console.log(auth.token)
         var book = {
-            title: 'asd',//document.getElementById("title").value,
-            info: "asd", //document.getElementById("info"),
-            moreInfo: "adad",// document.getElementById("moreinfo")
+            title: document.getElementById("title").value,
+            info: document.getElementById("info").value,
+            moreInfo: document.getElementById("moreinfo").value
         };
         var data = JSON.stringify(book);
 
@@ -65,6 +65,9 @@ class UserStore {
                 }
                 else {
                     this.getData();
+                    document.getElementById("title").value = "";
+                    document.getElementById("info").value = "";
+                    document.getElementById("moreinfo").value = "";
                 }
             }).catch(err => {
             //This is the only way (I have found) to veryfy server is not running
@@ -82,8 +85,22 @@ class UserStore {
         //         console.log(text);
         //         //this.getData();
         //     });
-
-}}
+    }
+    editData = (e) => {
+        var target = e.target.parentNode;
+        var book = {
+            id : target.id,
+            title : target.childNodes[0].innerText,
+            info : target.childNodes[1].innerText,
+            moreinfo : target.childNodes[2].innerText
+        };
+        console.log(book);
+        document.getElementById("id").value = book.id;
+        document.getElementById("title").value = book.title;
+        document.getElementById("info").value = book.info;
+        document.getElementById("moreinfo").value = book.moreinfo;
+    }
+}
 
 let userStore = new UserStore();
 
