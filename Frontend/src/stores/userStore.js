@@ -41,6 +41,7 @@ class UserStore {
 
     @action
     postData = () => {
+        let errorCode = 200;
         console.log(auth.token)
         var book = {
             title: 'asd',//document.getElementById("title").value,
@@ -52,6 +53,23 @@ class UserStore {
         const options = fetchHelper.makeOptions("POST", true,book);
 
         fetch(URL + "api/book", options)
+            .then((res) => {
+                if (res.status > 200 || !res.ok) {
+                    errorCode = res.status;
+                }
+                return res.json();
+            })
+            .then((res) => {
+                if (errorCode !== 200) {
+                    throw new Error(`${res.error.message} (${res.error.code})`);
+                }
+                else {
+                    this.getData();
+                }
+            }).catch(err => {
+            //This is the only way (I have found) to veryfy server is not running
+            this.setErrorMessage(fetchHelper.addJustErrorMessage(err));
+        })
 
         // fetch(URL + "api/book", {
         //     method: "post",
