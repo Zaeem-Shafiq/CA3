@@ -64,8 +64,8 @@ class UserStore {
         //         console.log(text);
         //         //this.getData();
         //     });
-    }
-}
+
+}}
 
 let userStore = new UserStore();
 

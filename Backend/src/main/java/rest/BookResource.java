@@ -69,11 +69,14 @@ public class BookResource {
     @RolesAllowed("User")
     @Consumes(MediaType.APPLICATION_JSON)
     public String createBook(String content) {
+        System.out.println("asdasdasasdsad");
+        System.out.println(content);
         try {
             Book book = gson.fromJson(content, Book.class);
             bf.createBook(book);
             return "{\"isSucced\" : \"Created\"}";
         } catch (Exception e) {
+            System.out.println("fail: "+ e.getMessage());
             throw null;
         }
     }
