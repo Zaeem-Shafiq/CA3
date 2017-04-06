@@ -56,7 +56,6 @@ public class BookResource {
     @RolesAllowed("User")
     @Consumes(MediaType.APPLICATION_JSON)
     public String updateBook(String content) {
-        System.out.println(content);
         try {
             Book book = gson.fromJson(content, Book.class);
             bf.updateBook(book);
@@ -70,8 +69,6 @@ public class BookResource {
     @RolesAllowed("User")
     @Consumes(MediaType.APPLICATION_JSON)
     public String createBook(String content) {
-        System.out.println("asdasdasasdsad");
-        System.out.println(content);
         try {
             Book book = gson.fromJson(content, Book.class);
             bf.createBook(book);

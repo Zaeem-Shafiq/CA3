@@ -112,12 +112,12 @@ class UserStore {
 
     @action
     deleteData = (e) => {
-        console.log(e.target.parentNode.childNodes[0].innerText)
+        console.log(e.target.parentNode.parentNode.id)
         let errorCode = 200;
         console.log(auth.token)
-        const options = fetchHelper.makeOptions("PUT", true);
+        const options = fetchHelper.makeOptions("DELETE", true);
 
-        fetch(URL + "api/book/" + e.target.parentNode.childNodes[0].innerText, options)
+        fetch(URL + "api/book/" + e.target.parentNode.parentNode.id, options)
             .then((res) => {
                 if (res.status > 200 || !res.ok) {
                     errorCode = res.status;
