@@ -117,12 +117,12 @@ public class InitialSeedRestIntegrationTest {
     public void testDeleteBook() {
         BookFacade bf = new BookFacade("pu_development");
         Book b = new Book("title", "info", "more info");
-        
+
         bf.createBook(b);
         List<Book> bookList = bf.getBooks();
-        
-        int del = bookList.get(bookList.size()-1).getId();
-        
+
+        int del = bookList.get(bookList.size() - 1).getId();
+
         login("user", "test");
         given()
                 .contentType("application/json")

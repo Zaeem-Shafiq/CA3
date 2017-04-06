@@ -2,11 +2,11 @@ package jsonMappers;
 
 import entity.Role;
 
-public class jsonRole {
+public class JsonRole {
 
     private String roleName;
 
-    public jsonRole(Role role) {
+    public JsonRole(Role role) {
         this.roleName = role.getRoleName();
     }
 }

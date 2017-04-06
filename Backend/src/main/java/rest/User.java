@@ -9,11 +9,11 @@ import javax.ws.rs.core.MediaType;
 @Path("demouser")
 @RolesAllowed("User")
 public class User {
-  
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  public String getSomething(){
-    return "{\"message\" : \"Hello User from Server (Accesible by only authenticated USERS)\"}"; 
-  }
- 
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getSomething() {
+        return "{\"message\" : \"Hello User from Server (Accesible by only authenticated USERS)\"}";
+    }
+
 }

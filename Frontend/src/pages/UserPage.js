@@ -28,7 +28,9 @@ const UserPage = observer(
                                         <td>{book.title}</td>
                                         <td>{book.info}</td>
                                         <td>{book.moreInfo}</td>
-                                        <td><button onClick={userData.deleteData}>Delete</button></td>
+                                        <td>
+                                            <button onClick={userData.deleteData}>Delete</button>
+                                        </td>
                                     </tr>
                                 )
                             })}
@@ -45,8 +47,14 @@ const UserPage = observer(
                                             placeholder="Info"/></p>
                             <p>More info: <input className="form-control" type="text" name="moreinfo" id="moreinfo"
                                                  placeholder="More info"/></p>
-                            <input className="form-control" type="submit" name="create" id="create" value="Create" onClick={function(){userData.postData()}}/>
-                            <input className="form-control" type="submit" name="edit" id="edit" value="Edit" onClick={function(){userData.putData()}}/>
+                            <input className="form-control" type="submit" name="create" id="create" value="Create"
+                                   onClick={function () {
+                                       userData.postData()
+                                   }}/>
+                            <input className="form-control" type="submit" name="edit" id="edit" value="Edit"
+                                   onClick={function () {
+                                       userData.putData()
+                                   }}/>
                         </form>
                     </div>
                     <h4 style={{color: "red"}}>{userData.errorMessage}</h4>

@@ -48,7 +48,7 @@ class UserStore {
             moreInfo: document.getElementById("moreinfo").value
         };
 
-        const options = fetchHelper.makeOptions("POST", true,book);
+        const options = fetchHelper.makeOptions("POST", true, book);
 
         fetch(URL + "api/book", options)
             .then((res) => {
@@ -84,7 +84,7 @@ class UserStore {
             moreInfo: document.getElementById("moreinfo").value
         };
 
-        const options = fetchHelper.makeOptions("PUT", true,book);
+        const options = fetchHelper.makeOptions("PUT", true, book);
 
         fetch(URL + "api/book", options)
             .then((res) => {
@@ -140,10 +140,10 @@ class UserStore {
     getEditData = (e) => {
         var target = e.target.parentNode;
         var book = {
-            id : target.id,
-            title : target.childNodes[0].innerText,
-            info : target.childNodes[1].innerText,
-            moreinfo : target.childNodes[2].innerText
+            id: target.id,
+            title: target.childNodes[0].innerText,
+            info: target.childNodes[1].innerText,
+            moreinfo: target.childNodes[2].innerText
         };
         console.log(book);
         document.getElementById("id").value = book.id;

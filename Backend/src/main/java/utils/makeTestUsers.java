@@ -16,11 +16,11 @@ public class makeTestUsers {
         EntityManager em = Persistence.createEntityManagerFactory("pu_development").createEntityManager();
         try {
 //            if (em.find(User.class, "user") == null) {
-                em.getTransaction().begin();
-                
-                User admin = new User("admin123", "test123");
-                Role role = new Role("Admin");
-                admin.addRole(role);
+            em.getTransaction().begin();
+
+            User admin = new User("admin123", "test123");
+            Role role = new Role("Admin");
+            admin.addRole(role);
 //                System.out.println("Creating TEST Users");
 //                Role userRole = new Role("User");
 //                Role adminRole = new Role("Admin");
@@ -34,9 +34,9 @@ public class makeTestUsers {
 //                em.persist(userRole);
 //                em.persist(adminRole);
 //                em.persist(user);
-                em.persist(admin);
+            em.persist(admin);
 //                em.persist(both);
-                em.getTransaction().commit();
+            em.getTransaction().commit();
 //                System.out.println("Created TEST Users");
 //            }
         } catch (Exception ex) {

@@ -1,5 +1,4 @@
-
-import { observable, action } from "mobx";
+import {observable, action} from "mobx";
 import fetchHelper from "./fetchHelpers"
 const URL = require("../../package.json").serverURL;
 
@@ -44,7 +43,7 @@ class AdminStore {
         var user = {
             userName: document.getElementById("username").value,
             passwordHash: document.getElementById("password").value,
-            roles: [{ roleName : document.getElementById("role").value}]
+            roles: [{roleName: document.getElementById("role").value}]
         };
 
         const options = fetchHelper.makeOptions("POST", true, user);

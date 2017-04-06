@@ -18,7 +18,7 @@ function requireAuth(nextState, replace) {
     if (!auth.loggedIn) {
         replace({
             pathname: '/login',
-            state: { nextPathname: nextState.location.pathname }
+            state: {nextPathname: nextState.location.pathname}
         })
     }
 }
@@ -28,6 +28,7 @@ const Product = observer(
         componentWillMount() {
             userStore.getData();
         }
+
         render() {
             return (
                 <div>
@@ -51,23 +52,23 @@ const Product = observer(
 class RouterComponent extends React.Component {
     render() {
         var books = userStore.messageFromServer;
-        return(
-        <Router history={hashHistory}>
-            <Route path="/" component={App}>
-                <IndexRoute component={Home}/>
-                <Route path="home" component={Home}/>
-                <Route path="login" component={Login}/>
-                <Route path="logout" component={Logout}/>
-                <Route path="documentation" component={Documentation}/>
-                {auth.isUser ? <Route path="user" component={UserPage}/> : null}
-                <Route path="company" component={Company}/>
-                {auth.isAdmin ? <Route path="admin" component={AdminPage}/> : null}
-                <Route path="product" component={Product} books={books} onEnter={requireAuth} />
-                <Route path="products/details/:id" component={Details} books={books}/>
-            </Route>
-        </Router>
-    );
-}
+        return (
+            <Router history={hashHistory}>
+                <Route path="/" component={App}>
+                    <IndexRoute component={Home}/>
+                    <Route path="home" component={Home}/>
+                    <Route path="login" component={Login}/>
+                    <Route path="logout" component={Logout}/>
+                    <Route path="documentation" component={Documentation}/>
+                    {auth.isUser ? <Route path="user" component={UserPage}/> : null}
+                    <Route path="company" component={Company}/>
+                    {auth.isAdmin ? <Route path="admin" component={AdminPage}/> : null}
+                    <Route path="product" component={Product} books={books} onEnter={requireAuth}/>
+                    <Route path="products/details/:id" component={Details} books={books}/>
+                </Route>
+            </Router>
+        );
+    }
 }
 
 export default RouterComponent;

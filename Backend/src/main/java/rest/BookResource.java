@@ -74,7 +74,7 @@ public class BookResource {
             bf.createBook(book);
             return "{\"isSucced\" : \"Created\"}";
         } catch (Exception e) {
-            System.out.println("fail: "+ e.getMessage());
+            System.out.println("fail: " + e.getMessage());
             throw null;
         }
     }

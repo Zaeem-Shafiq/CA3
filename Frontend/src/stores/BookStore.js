@@ -12,6 +12,7 @@ class BookStore extends React.Component {
     get books() {
         return this._books;
     }
-};
+}
+;
 
 export default BookStore;

@@ -6,25 +6,25 @@ import java.util.List;
 
 /*
 REF: http://scytl.github.io/restguide/#_security_2
-*/
+ */
 public class UserPrincipal implements Principal {
- private String username; 
 
-  private List<String> roles = new ArrayList<>();
+    private String username;
 
-  
-  public UserPrincipal(String username, List<String> roles) {
-    super();
-    this.username = username;
-    this.roles = roles;
-  }
+    private List<String> roles = new ArrayList<>();
 
-  @Override
-  public String getName() { 
-    return username;
-  }
+    public UserPrincipal(String username, List<String> roles) {
+        super();
+        this.username = username;
+        this.roles = roles;
+    }
 
-  public boolean isUserInRole(String role) { 
-    return this.roles.contains(role);
-  }
+    @Override
+    public String getName() {
+        return username;
+    }
+
+    public boolean isUserInRole(String role) {
+        return this.roles.contains(role);
+    }
 }

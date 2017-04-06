@@ -1,6 +1,6 @@
-
 package security;
 
 public class Secret {
-  public static byte[] SHARED_SECRET;  
+
+    public static byte[] SHARED_SECRET;
 }

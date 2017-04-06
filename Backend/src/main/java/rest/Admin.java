@@ -14,7 +14,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import jsonMappers.jsonUser;
+import jsonMappers.JsonUser;
 
 @Path("user")
 //@RolesAllowed("Admin")
@@ -27,9 +27,9 @@ public class Admin {
     @Produces(MediaType.APPLICATION_JSON)
     public String getUsers() {
         try {
-            List<jsonUser> jList = new ArrayList();
+            List<JsonUser> jList = new ArrayList();
             for (entity.User user : uf.getUsers()) {
-                jList.add(new jsonUser(user));
+                jList.add(new JsonUser(user));
             }
             return gson.toJson(jList);
         } catch (Exception e) {

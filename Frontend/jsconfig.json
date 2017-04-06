@@ -1,8 +1,8 @@
 {
-    "compilerOptions": {
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "module": "amd",
-        "target": "ES6" 
-    }
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "module": "amd",
+    "target": "ES6"
+  }
 }
