@@ -43,18 +43,27 @@ class UserStore {
     postData = () => {
         console.log(auth.token)
         var book = {
-            "id" : 20,
-            "title": "asd",//document.getElementById("title").value,
-            "info": "asd", //document.getElementById("info"),
-            "moreInfo": "adad",// document.getElementById("moreinfo")
+            title: 'asd',//document.getElementById("title").value,
+            info: "asd", //document.getElementById("info"),
+            moreInfo: "adad",// document.getElementById("moreinfo")
         };
-        console.log(book)
-        fetch(URL + "api/book", {method: "post", headers: {'Authorization': auth.isUser, 'Accept': 'application/json', 'Content-Type': 'application/json'}, body: JSON.stringify(book)}).then(function(res){
-                return res.text();
-            }).then(function(text){
-                console.log(text);
-                //this.getData();
-            });
+        var data = JSON.stringify(book);
+
+        const options = fetchHelper.makeOptions("POST", true,book);
+
+        fetch(URL + "api/book", options)
+
+        // fetch(URL + "api/book", {
+        //     method: "post",
+        //     headers: {'Authorization': auth.isUser, 'Accept': 'application/json', 'Content-Type': 'application/json'},
+        //     body: JSON.stringify(book)})
+        //     .then(function(res){
+        //         return res.text();
+        //     })
+        //     .then(function(text){
+        //         console.log(text);
+        //         //this.getData();
+        //     });
     }
 }
 
