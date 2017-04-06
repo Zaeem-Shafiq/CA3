@@ -112,7 +112,6 @@ class UserStore {
 
     @action
     deleteData = (e) => {
-        console.log(e.target.parentNode.parentNode.id)
         let errorCode = 200;
         console.log(auth.token)
         const options = fetchHelper.makeOptions("DELETE", true);
@@ -130,9 +129,6 @@ class UserStore {
                 }
                 else {
                     this.getData();
-                    document.getElementById("title").value = "";
-                    document.getElementById("info").value = "";
-                    document.getElementById("moreinfo").value = "";
                 }
             }).catch(err => {
             //This is the only way (I have found) to veryfy server is not running
