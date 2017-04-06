@@ -96,6 +96,27 @@ public class InitialSeedRestIntegrationTest {
                 .then()
                 .statusCode(200);
     }
+    
+    @Test
+    public void testCreateBook(){
+        
+    }
+    
+    @Test
+    public void testDeleteBook(){
+       login("user","test");
+                
+                
+                given()
+                        .contentType("application/json")
+                .header("Authorization", "Bearer " + securityToken)
+                        .
+                        
+                        pathParam("id", 53).when().delete("api/book/{id}").then().statusCode(200);
+    }
+    
+    
+    
 
 //  @Test
 //  public void tesRestForAdmin() {

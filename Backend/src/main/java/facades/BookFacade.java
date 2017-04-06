@@ -63,6 +63,7 @@ public class BookFacade {
         Book book = getBookById(id);
         try {
             em.getTransaction().begin();
+            book = em.merge(book);
             em.remove(book);
             em.getTransaction().commit();
         } catch (RollbackException r) {
