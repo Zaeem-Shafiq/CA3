@@ -6,7 +6,6 @@ const UserPage = observer(
     class UserPage extends Component {
         submitData = (e) => {
             e.preventDefault();
-            userData.postData();
         }
 
 
@@ -25,10 +24,11 @@ const UserPage = observer(
                             <tbody>
                             {userData.messageFromServer.map(book => {
                                 return (
-                                    <tr key={book.id} id={book.id} onDoubleClick={userData.editData}>
+                                    <tr key={book.id} id={book.id} onDoubleClick={userData.getEditData}>
                                         <td>{book.title}</td>
                                         <td>{book.info}</td>
                                         <td>{book.moreInfo}</td>
+                                        <td><button onClick={userData.deleteData()}>Delete</button></td>
                                     </tr>
                                 )
                             })}
@@ -39,14 +39,14 @@ const UserPage = observer(
                         <form action="#" method="post" onSubmit={this.submitData}>
                             <p>Id: <input className="form-control" type="text" name="id" id="id"
                                           placeholder="Id" disabled/></p>
+                            <p>Title: <input className="form-control" type="text" name="title" id="title"
+                                             placeholder="Title"/></p>
                             <p>Info: <input className="form-control" type="text" name="info" id="info"
                                             placeholder="Info"/></p>
                             <p>More info: <input className="form-control" type="text" name="moreinfo" id="moreinfo"
                                                  placeholder="More info"/></p>
-                            <p>Title: <input className="form-control" type="text" name="title" id="title"
-                                             placeholder="Title"/></p>
-                            <input className="form-control" type="submit" name="create" id="create"/>
-                            <input className="form-control" type="submit" name="edit" id="edit"/>
+                            <input className="form-control" type="submit" name="create" id="create" value="Create" onClick={function(){userData.postData()}}/>
+                            <input className="form-control" type="submit" name="edit" id="edit" value="Edit" onClick={function(){userData.putData()}}/>
                         </form>
                     </div>
                     <h4 style={{color: "red"}}>{userData.errorMessage}</h4>
