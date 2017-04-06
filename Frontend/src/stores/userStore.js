@@ -16,7 +16,6 @@ class UserStore {
     @action
     getData = () => {
         this.errorMessage = "";
-        this.messageFromServer = [];
         let errorCode = 200;
         const options = fetchHelper.makeOptions("GET", true);
         fetch(URL + "api/book", options)
@@ -48,7 +47,6 @@ class UserStore {
             info: document.getElementById("info").value,
             moreInfo: document.getElementById("moreinfo").value
         };
-        var data = JSON.stringify(book);
 
         const options = fetchHelper.makeOptions("POST", true,book);
 
@@ -73,20 +71,77 @@ class UserStore {
             //This is the only way (I have found) to veryfy server is not running
             this.setErrorMessage(fetchHelper.addJustErrorMessage(err));
         })
-
-        // fetch(URL + "api/book", {
-        //     method: "post",
-        //     headers: {'Authorization': auth.isUser, 'Accept': 'application/json', 'Content-Type': 'application/json'},
-        //     body: JSON.stringify(book)})
-        //     .then(function(res){
-        //         return res.text();
-        //     })
-        //     .then(function(text){
-        //         console.log(text);
-        //         //this.getData();
-        //     });
     }
-    editData = (e) => {
+
+    @action
+    putData = () => {
+        let errorCode = 200;
+        console.log(auth.token)
+        var book = {
+            id: document.getElementById("id").value,
+            title: document.getElementById("title").value,
+            info: document.getElementById("info").value,
+            moreInfo: document.getElementById("moreinfo").value
+        };
+
+        const options = fetchHelper.makeOptions("PUT", true,book);
+
+        fetch(URL + "api/book", options)
+            .then((res) => {
+                if (res.status > 200 || !res.ok) {
+                    errorCode = res.status;
+                }
+                return res.json();
+            })
+            .then((res) => {
+                if (errorCode !== 200) {
+                    throw new Error(`${res.error.message} (${res.error.code})`);
+                }
+                else {
+                    this.getData();
+                    document.getElementById("title").value = "";
+                    document.getElementById("info").value = "";
+                    document.getElementById("moreinfo").value = "";
+                }
+            }).catch(err => {
+            //This is the only way (I have found) to veryfy server is not running
+            this.setErrorMessage(fetchHelper.addJustErrorMessage(err));
+        })
+    }
+
+
+    @action
+    deleteData = (e) => {
+        console.log(e.target.parentNode.childNodes[0].innerText)
+        let errorCode = 200;
+        console.log(auth.token)
+        const options = fetchHelper.makeOptions("PUT", true);
+
+        fetch(URL + "api/book/" + e.target.parentNode.childNodes[0].innerText, options)
+            .then((res) => {
+                if (res.status > 200 || !res.ok) {
+                    errorCode = res.status;
+                }
+                return res.json();
+            })
+            .then((res) => {
+                if (errorCode !== 200) {
+                    throw new Error(`${res.error.message} (${res.error.code})`);
+                }
+                else {
+                    this.getData();
+                    document.getElementById("title").value = "";
+                    document.getElementById("info").value = "";
+                    document.getElementById("moreinfo").value = "";
+                }
+            }).catch(err => {
+            //This is the only way (I have found) to veryfy server is not running
+            this.setErrorMessage(fetchHelper.addJustErrorMessage(err));
+        })
+    }
+
+    @action
+    getEditData = (e) => {
         var target = e.target.parentNode;
         var book = {
             id : target.id,
