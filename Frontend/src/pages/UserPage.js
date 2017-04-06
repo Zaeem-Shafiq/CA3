@@ -28,7 +28,7 @@ const UserPage = observer(
                                         <td>{book.title}</td>
                                         <td>{book.info}</td>
                                         <td>{book.moreInfo}</td>
-                                        <td><button onClick={userData.deleteData()}>Delete</button></td>
+                                        <td><button onClick={userData.deleteData}>Delete</button></td>
                                     </tr>
                                 )
                             })}
