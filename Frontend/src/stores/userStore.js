@@ -112,12 +112,11 @@ class UserStore {
 
     @action
     deleteData = (e) => {
-        console.log(e.target.parentNode.childNodes[0].innerText)
         let errorCode = 200;
         console.log(auth.token)
-        const options = fetchHelper.makeOptions("PUT", true);
+        const options = fetchHelper.makeOptions("DELETE", true);
 
-        fetch(URL + "api/book/" + e.target.parentNode.childNodes[0].innerText, options)
+        fetch(URL + "api/book/" + e.target.parentNode.parentNode.id, options)
             .then((res) => {
                 if (res.status > 200 || !res.ok) {
                     errorCode = res.status;
@@ -130,9 +129,6 @@ class UserStore {
                 }
                 else {
                     this.getData();
-                    document.getElementById("title").value = "";
-                    document.getElementById("info").value = "";
-                    document.getElementById("moreinfo").value = "";
                 }
             }).catch(err => {
             //This is the only way (I have found) to veryfy server is not running
