@@ -84,7 +84,7 @@ public class BookResource {
 
     @DELETE
     @Path("{id}")
-    @RolesAllowed("User")
+//    @RolesAllowed("User")
     @Consumes(MediaType.APPLICATION_JSON)
     public String deleteBook(@PathParam("id") int id) {
         try {
