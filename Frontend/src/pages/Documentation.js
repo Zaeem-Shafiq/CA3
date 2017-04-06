@@ -15,25 +15,42 @@ export default class About extends Component {
                     <thead>
                     <tr>
                         <th>GET</th>
-                        <th>POST</th>
-                        <th>PUT</th>
-                        <th>DELETE</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td><b>api/book</b> --> Returns all books with all details as a JSON-object</td>
+                        <td><b>api/book</b> --> Returns all books as a JSON-object</td>
                     </tr>
                     <tr>
-                        <td><b>api/book/[id]</b> --> Returns the book (with the given id) with all details as a JSON-object</td>
+                        <td><b>api/book/[id]</b> --> Returns the book with the given id as a JSON-object
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>api/user</b> --> Returns all users as a JSON-object</td>
+                    </tr>
+                    <tr>
+                        <td><b>POST</b></td>
+                    </tr>
+                    <tr>
                         <td><b>api/book</b> --> Creates a new book given a JSON-object</td>
-                        <td>Moe</td>
-                        <td>mary@example.com</td>
                     </tr>
                     <tr>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
+                        <td><b>api/user</b> --> Creates a new user given a JSON-object</td>
+                    </tr>
+                    <tr>
+                        <td><b>PUT</b></td>
+                    </tr>
+                    <tr>
+                        <td><b>api/book</b> --> Updates a existing book given a JSON-object</td>
+                    </tr>
+                    <tr>
+                        <td><b>DELETE</b></td>
+                    </tr>
+                    <tr>
+                        <td><b>api/book/[id]</b> --> Deletes a existing book with the given id</td>
+                    </tr>
+                    <tr>
+                        <td><b>api/user/[id]</b> --> Deletes a existing user with the given username/id</td>
                     </tr>
                     </tbody>
                 </table>
