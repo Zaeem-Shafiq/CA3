@@ -45,16 +45,17 @@ public class BookFacade {
 
     public Book updateBook(Book book) {
         EntityManager em = getEntityManager();
+        Book bookInDB = getBookById(book.getId());
         try {
             em.getTransaction().begin();
-            book = em.merge(book);
+            bookInDB = em.merge(book);
             em.getTransaction().commit();
         } catch (RollbackException r) {
             em.getTransaction().rollback();
         } finally {
             em.close();
         }
-        return book;
+        return bookInDB;
     }
 
     public boolean deleteBook(int id) {
@@ -62,7 +63,6 @@ public class BookFacade {
         Book book = getBookById(id);
         try {
             em.getTransaction().begin();
-            book = em.merge(book);
             em.remove(book);
             em.getTransaction().commit();
         } catch (RollbackException r) {
