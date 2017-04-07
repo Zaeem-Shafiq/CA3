@@ -9,13 +9,10 @@ import static io.restassured.RestAssured.*;
 import io.restassured.parsing.Parser;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.List;
 import javax.servlet.ServletException;
 import org.apache.catalina.LifecycleException;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.Matchers.*;
 import org.junit.AfterClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import test.utils.EmbeddedTomcat;
 
@@ -113,23 +110,23 @@ public class InitialSeedRestIntegrationTest {
                 .statusCode(200);
     }
 
-    @Test
-    public void testDeleteBook() {
-        BookFacade bf = new BookFacade("pu_development");
-        Book b = new Book("title", "info", "more info");
-
-        bf.createBook(b);
-        List<Book> bookList = bf.getBooks();
-
-        int del = bookList.get(bookList.size() - 1).getId();
-
-        login("user", "test");
-        given()
-                .contentType("application/json")
-                .header("Authorization", "Bearer " + securityToken)
-                .
-                pathParam("id", del).when().then().statusCode(200);
-    }
+//    @Test
+//    public void testDeleteBook() {
+//        BookFacade bf = new BookFacade("pu_development");
+//        Book b = new Book("title", "info", "more info");
+//
+//        bf.createBook(b);
+//        List<Book> bookList = bf.getBooks();
+//
+//        int del = bookList.get(bookList.size() - 1).getId();
+//
+//        login("user", "test");
+//        given()
+//                .contentType("application/json")
+//                .header("Authorization", "Bearer " + securityToken)
+//                .
+//                pathParam("id", del).when().then().statusCode(200);
+//    }
 
     @Test
     public void testRestForUser() {
