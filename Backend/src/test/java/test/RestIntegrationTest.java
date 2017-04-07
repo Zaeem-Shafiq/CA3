@@ -9,6 +9,7 @@ import static io.restassured.RestAssured.*;
 import io.restassured.parsing.Parser;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.List;
 import javax.servlet.ServletException;
 import org.apache.catalina.LifecycleException;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -16,13 +17,13 @@ import org.junit.AfterClass;
 import org.junit.Test;
 import test.utils.EmbeddedTomcat;
 
-public class InitialSeedRestIntegrationTest {
+public class RestIntegrationTest {
 
     private static final int SERVER_PORT = 9999;
     private static final String APP_CONTEXT = "/seed";
     private static EmbeddedTomcat tomcat;
 
-    public InitialSeedRestIntegrationTest() {
+    public RestIntegrationTest() {
     }
     private static String securityToken;
 
@@ -97,8 +98,8 @@ public class InitialSeedRestIntegrationTest {
 
     @Test
     public void testCreateBook() {
+        BookFacade bf = new BookFacade("pu_development");
         Book b = new Book("title", "info", "more info");
-
         login("user", "test");
         given()
                 .contentType("application/json")
@@ -108,25 +109,32 @@ public class InitialSeedRestIntegrationTest {
                 .post("api/book")
                 .then()
                 .statusCode(200);
+        List<Book> bookList = bf.getBooks();
+        int idToDelete = bookList.get(bookList.size()-1).getId();
+        bf.deleteBook(idToDelete);
+        
+        
     }
 
-//    @Test
-//    public void testDeleteBook() {
-//        BookFacade bf = new BookFacade("pu_development");
-//        Book b = new Book("title", "info", "more info");
-//
-//        bf.createBook(b);
-//        List<Book> bookList = bf.getBooks();
-//
-//        int del = bookList.get(bookList.size() - 1).getId();
-//
-//        login("user", "test");
-//        given()
-//                .contentType("application/json")
-//                .header("Authorization", "Bearer " + securityToken)
-//                .
-//                pathParam("id", del).when().then().statusCode(200);
-//    }
+    @Test
+    public void testDeleteBook() {
+        BookFacade bf = new BookFacade("pu_development");
+        Book b = new Book("title", "info", "more info");
+        bf.createBook(b);
+        System.out.println(b.getId());
+        List<Book> bookList = bf.getBooks();
+        System.out.println(bookList.size());
+        int idToDelete = bookList.get(bookList.size()-1).getId();
+        System.out.println(idToDelete);
+        login("user", "test");
+        given()
+                .contentType("application/json")
+                .header("Authorization", "Bearer " + securityToken)
+                .delete("api/book/"+idToDelete+"/")
+                .then()
+                .statusCode(200);
+        System.out.println(bf.getBooks().size());
+    }
 
     @Test
     public void testRestForUser() {
@@ -135,30 +143,21 @@ public class InitialSeedRestIntegrationTest {
                 .contentType("application/json")
                 .header("Authorization", "Bearer " + securityToken)
                 .when()
-                .get("/api/demouser").then()
+                .get("/api/demouser")
+                .then()
                 .statusCode(200)
                 .body("message", equalTo("Hello User from Server (Accesible by only authenticated USERS)"));
     }
 
-//  @Test
-//  public void userNotAuthenticated() {
-//    logOut();
-//    given()
-//            .contentType("application/json")
-//            .when()
-//            .get("/api/user").then()
-//            .statusCode(401)
-//            .body("error.message", equalTo("No authorization header provided"));
-//  }
-//  @Test
-//  public void adminNotAuthenticated() {
-//    logOut();
-//    given()
-//            .contentType("application/json")
-//            .when()
-//            .get("/api/user").then()
-//            .statusCode(401)
-//            .body("error.message", equalTo("No authorization header provided"));
-//
-//  }
+    @Test
+    public void userNotAuthenticated() {
+        logOut();
+        given()
+                .contentType("application/json")
+                .when()
+                .get("/api/user").then()
+                .statusCode(401)
+                .body("error.message", equalTo("No authorization header provided"));
+    }
+
 }
