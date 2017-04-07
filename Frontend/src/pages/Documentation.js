@@ -9,7 +9,7 @@ export default class About extends Component {
                 <h5>CA3 - Group 1 - Asger, Joacim & Zaeem</h5>
                 <a href="https://github.com/Zaeem-Shafiq/CA3">See GitHub</a>
                 <br/>
-                <a href="https://vetterlain.dk/CA3/api/book">See API</a>
+                <a href="https://vetterlain.dk/CA3">See API</a>
 
                 <table className="table table-striped">
                     <thead>
