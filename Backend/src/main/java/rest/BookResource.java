@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import facades.BookFacade;
 import java.util.List;
 import entity.Book;
+import httpErrors.BookNotFoundException;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
@@ -32,65 +33,64 @@ public class BookResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getAllBooks() {
+    public String getAllBooks() throws BookNotFoundException {
         try {
             List<Book> books = bf.getBooks();
             return gson.toJson(books);
         } catch (Exception e) {
-            throw null;
+            throw new BookNotFoundException("Books not found");
         }
     }
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getBookById(@PathParam("id") int id) {
+    public String getBookById(@PathParam("id") int id) throws BookNotFoundException {
         try {
             return gson.toJson(bf.getBookById(id));
         } catch (Exception e) {
-            throw null;
+            throw new BookNotFoundException("Book not found");
         }
     }
 
     @PUT
     @RolesAllowed("User")
     @Consumes(MediaType.APPLICATION_JSON)
-    public String updateBook(String content) {
+    public String updateBook(String content) throws BookNotFoundException {
         try {
             Book book = gson.fromJson(content, Book.class);
             bf.updateBook(book);
             return "{\"isSucced\" : \"Updated\"}";
         } catch (Exception e) {
-            throw null;
+            throw new BookNotFoundException("Book not found");
         }
     }
 
     @POST
     @RolesAllowed("User")
     @Consumes(MediaType.APPLICATION_JSON)
-    public String createBook(String content) {
+    public String createBook(String content) throws BookNotFoundException {
         try {
             Book book = gson.fromJson(content, Book.class);
             bf.createBook(book);
             return "{\"isSucced\" : \"Created\"}";
         } catch (Exception e) {
-            System.out.println("fail: " + e.getMessage());
-            throw null;
+            throw new BookNotFoundException(e.getMessage());
         }
     }
 
     @DELETE
     @Path("{id}")
-//    @RolesAllowed("User")
+    @RolesAllowed("User")
     @Consumes(MediaType.APPLICATION_JSON)
-    public String deleteBook(@PathParam("id") int id) {
+    public String deleteBook(@PathParam("id") int id) throws BookNotFoundException {
         System.out.println("first id: " + id);
         try {
             System.out.println(bf.deleteBook(id));
             System.out.println("second id: " + id);
             return "{\"isSucced\" : \"Deleted\"}";
         } catch (Exception e) {
-            throw null;
+            throw new BookNotFoundException("Book not found");
         }
     }
 }
