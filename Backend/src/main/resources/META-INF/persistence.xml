@@ -22,4 +22,5 @@
             <!--<property name="javax.persistence.sql-load-script-source" value="scripts/initalUserAndRolesSeed.sql"/>-->
         </properties>
     </persistence-unit>
+
 </persistence>

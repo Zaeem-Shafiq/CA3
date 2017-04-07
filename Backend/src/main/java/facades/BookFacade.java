@@ -61,6 +61,7 @@ public class BookFacade {
     public boolean deleteBook(int id) {
         EntityManager em = getEntityManager();
         Book book = getBookById(id);
+        System.out.println(id);
         try {
             em.getTransaction().begin();
             book = em.merge(book);
