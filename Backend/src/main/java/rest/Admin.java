@@ -2,7 +2,9 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import facades.UserFacade;
+import httpErrors.UserNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
@@ -15,9 +17,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import jsonMappers.JsonUser;
+import security.PasswordStorage;
 
 @Path("user")
-//@RolesAllowed("Admin")
+@RolesAllowed("Admin")
 public class Admin {
 
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -25,7 +28,7 @@ public class Admin {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getUsers() {
+    public String getUsers() throws UserNotFoundException {
         try {
             List<JsonUser> jList = new ArrayList();
             for (entity.User user : uf.getUsers()) {
@@ -33,33 +36,33 @@ public class Admin {
             }
             return gson.toJson(jList);
         } catch (Exception e) {
-            throw null;
+            throw new UserNotFoundException("Users not found");
         }
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public String createUser(String content) {
+    public String createUser(String content) throws UserNotFoundException {
         try {
             entity.User user = gson.fromJson(content, entity.User.class);
             entity.User user1 = new entity.User(user.getUserName(), user.getPassword());
             user1.addRole(user.getRoles().get(0));
             uf.createUser(user1);
             return "{\"isSucced\" : \"Created\"}";
-        } catch (Exception e) {
-            throw null;
+        } catch (JsonSyntaxException | PasswordStorage.CannotPerformOperationException e) {
+            throw new UserNotFoundException(e.getMessage());
         }
     }
 
     @DELETE
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public String deleteUser(@PathParam("id") String id) {
+    public String deleteUser(@PathParam("id") String id) throws UserNotFoundException {
         try {
             uf.deleteUser(id);
             return "{\"isSucced\" : \"Deleted\"}";
         } catch (Exception e) {
-            throw null;
+            throw new UserNotFoundException("User not found");
         }
     }
 
